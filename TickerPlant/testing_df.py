@@ -7,24 +7,20 @@ import queue
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
+import sqlalchemy
 
-url = 'https://pro-api.coinmarketcap.com/v1/community/trending/token'
-parameters = {
-  'limit':'1',
-  
-}
-headers = {
-  'Accepts': 'application/json',
-  'X-CMC_PRO_API_KEY': 'a9407896-d389-4042-8729-9fe6c1a7b9ac',
-}
+session = HTMLSession()
+num_currencies=250
+resp = session.get(f"https://finance.yahoo.com/crypto?offset=0&count={num_currencies}")
+tables = pd.read_html(resp.html.raw_html)               
+df = tables[0].copy()
+symbols_yf = df.Symbol.tolist()
 
-session = Session()
-session.headers.update(headers)
+symdf = pd.DataFrame(symbols_yf)
 
-try:
-  response = session.get(url, params=parameters)
-  data = json.loads(response.text)
-  print(data)
-except (ConnectionError, Timeout, TooManyRedirects) as e:
-  print(e)
-  
+
+
+
+engine = sqlalchemy.create_engine('mssql+pyodbc://@' + 'LOUIS-PC' + '/' + 'Crypto_market_prices' + '?trusted_connection=yes&driver=ODBC Driver 17 for SQL Server')
+    
+symdf.to_sql('symbols', engine,if_exists='append')

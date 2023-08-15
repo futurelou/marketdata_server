@@ -11,7 +11,18 @@ class handler:
     def __init__(self, Q):
         self.q = Q
 
-    def yfinance_data(self):
+    def put_on_q(self,data):
+        self.q.put(item= data)
+
+    def q_check(self,q):
+        if q.full:
+            print('the queue is full')
+        else:
+            print('queue is empty')
+
+class yhandler(handler):
+
+    def get_data(self):
 
         session = HTMLSession()
         num_currencies=250
@@ -24,25 +35,17 @@ class handler:
         marketdata = yf.download(symbols_yf, start, end)
         df = marketdata.stack(level=1).rename_axis(['Date', 'Ticker']).reset_index(level=0)
         df= df.reset_index()
-        
         self.put_on_q(df)
 
 
-    def put_on_q(self,data):
-        self.q.put(item= data)
+class binance_data(handler):
+    pass
 
-    def q_check(self,q):
-        if q.full:
-            print('the queue is full')
-        else:
-            print('queue is empty')
+class coin_market_cap(handler):
+    pass
 
-    def binance_data(self):
-        pass
-
-    def coin_market_cap(self):
-        pass
-
+class twitter_sentiment:
+    pass 
 
 import configparser
 
