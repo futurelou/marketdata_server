@@ -53,7 +53,7 @@ class yahoo_handler(handler):
 
     def get_live_data(self):
 
-        start =  dt.datetime.now() - timedelta(minutes= = 1)#dt.datetime(2022,1,1)
+        start =  dt.datetime.now() - timedelta(minutes= 1)#dt.datetime(2022,1,1)
         end = dt.datetime.now()
         symdf = self.symbol.get_symbols()
         symlist = symdf['0'].to_list()
