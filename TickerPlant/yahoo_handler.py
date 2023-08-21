@@ -47,14 +47,14 @@ class yahoo_handler(handler):
     def get_hist_data(self):
             start =  dt.datetime.now() - timedelta(days = 730)
             
-            end = start + timedelta(days=count)
+            end = dt.datetime.now()
             symdf = self.symbol.get_symbols()
             symlist = symdf['0'].to_list()
             marketdata = yf.download(symlist, start, end, interval='1m')
             df = marketdata.stack(level=1).rename_axis(['Date', 'Ticker']).reset_index(level=0)
             df= df.reset_index()
            
-            return df1
+            return df
 
 
     def get_live_data(self):
