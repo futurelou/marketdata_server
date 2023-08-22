@@ -45,12 +45,12 @@ class handler:
 class yahoo_handler(handler):
 
     def get_hist_data(self):
-            start =  dt.datetime.now() - timedelta(days = 730)
+            start =  dt.datetime.now() - timedelta(days = 729)
             
             end = dt.datetime.now()
             symdf = self.symbol.get_symbols()
             symlist = symdf['0'].to_list()
-            marketdata = yf.download(symlist, start, end, interval='1m')
+            marketdata = yf.download(symlist, start, end, interval='1h')
             df = marketdata.stack(level=1).rename_axis(['Date', 'Ticker']).reset_index(level=0)
             df= df.reset_index()
            
@@ -91,9 +91,7 @@ def main():
    y = Symbol_map(feedType='DB', dbConnection=('LOUIS-PC', 'Crypto_market_prices'), dbtype="MSSQL")
    x = yahoo_handler(Q=q, symbols=y)
    z = Storage(q,'csv')
-   hist = x.get_hist_data()
-   x.put_on_q(hist)
-   params = (config['FILEPATH']['Crypto_Data'], '1_min_interval_crypto_data')
+   params = (config['FILEPATH']['Crypto_Data'], '1_hour_interval_crypto_data')
    threading.Thread(target=x.run).start()
    
    z.run(params)
