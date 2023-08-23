@@ -7,9 +7,9 @@ import time
 class Storage:
     def __init__(self, Q, savetype):
         self.q = Q
-        self.started = False 
-        
+        self.started = False      
         self.savetype = savetype
+        
 
     def start(self):
         self.started = True

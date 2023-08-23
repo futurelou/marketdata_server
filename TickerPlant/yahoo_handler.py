@@ -17,6 +17,7 @@ class handler:
         self.symbol = symbols
         self.started = False 
         
+        
 
     def put_on_q(self,data):
         self.q.put(item= data)
@@ -93,7 +94,7 @@ def main():
    z = Storage(q,'csv')
    params = (config['FILEPATH']['Crypto_Data'], '1_hour_interval_crypto_data')
    threading.Thread(target=x.run).start()
-   
+
    z.run(params)
   
 
