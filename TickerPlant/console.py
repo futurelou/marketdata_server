@@ -19,6 +19,7 @@ from symbols import Symbol_map
 import configparser
 import threading 
 from yahoo_handler import yahoo_handler
+import datetime as dt
 
 
 class TelnetServer(object):
@@ -436,6 +437,11 @@ def main():
             # Send a welcome message
             server.send_message(new_client, "Welcome, you are client {}.".format(new_client))
 
+            server.send_message(new_client, "1: Start the feed and storage")
+            server.send_message(new_client, "2: Stop the feed and storage ")
+            server.send_message(new_client, "3: shutdown the server ")
+            server.send_message(new_client, "4: get list of disconnected clients")
+                                 
         # For each client that has recently disconnected
         for disconnected_client in server.get_disconnected_clients():
             if disconnected_client not in clients:
@@ -453,19 +459,25 @@ def main():
             if sender_client not in clients:
                 continue
 
-            # Send every client a message reading: "I received "[MESSAGE]" from client [ID OF THE SENDER CLIENT]"
+            
             for client in clients:
                 
 
                 if message == '1':
-                    server.send_message(client, ' Starting feed and storage')
+                    server.send_message(client, f' Starting feed and storage {dt.datetime.now()}')
                     threading.Thread(target=z.run, args= (params,)).start()
                     threading.Thread(target=x.run,daemon=True).start()
                     
                 elif message == '2':
                     z.stop()
                     x.stop()
-                    server.send_message(client, ' feed and storage has stopped')
+                    server.send_message(client, f' feed and storage has stopped {dt.datetime.now()} ')
+
+                elif message == '3':
+                    server.shutdown()
+                
+                elif message == '4':
+                    server.get_disconnected_clients()
                 
    
    
