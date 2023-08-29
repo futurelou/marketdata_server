@@ -2,6 +2,7 @@ import pandas as pd
 import sqlalchemy
 
 
+
 class Symbol_map:
     # db connection consists of server 
     def __init__(self, feedType = None, fileName=None, filetype = None ,dbConnection=None, dbtype =None):
@@ -22,8 +23,19 @@ class Symbol_map:
             return result
             
 
-    def get_list_from_file(self,fileName, filetype):
-        pass 
+    def get_list_from_file(self,filename, filetype):
+            if filetype =='csv':
+                path = filename 
+                df = pd.read_csv(path)
+                return df
+            elif filetype =="xls":
+                path = filename
+                df = pd.read_excel(path)
+                return df 
+            elif filetype =='json':
+                path = filename
+                df = pd.read_json
+                return df       
 
     def get_list(self, data):
         d = pd.DataFrame(data)
