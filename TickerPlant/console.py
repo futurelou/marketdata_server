@@ -117,7 +117,7 @@ class TelnetServer(object):
         # this requires root permissions, so we use a higher arbitrary port
         # number instead: 1234. Address 0.0.0.0 means that we will bind to all
         # of the available network interfaces
-        self._listen_socket.bind(("localhost", port))
+        self._listen_socket.bind(("192.168.68.103", port))
 
         # set to non-blocking mode. This means that when we call 'accept', it
         # will return immediately without waiting for a connection
