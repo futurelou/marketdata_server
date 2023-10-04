@@ -1,4 +1,4 @@
-# marketdata_server
+# This project is still under development 
 # Marketdata_server
 
 Framework for establishing connections to real time market data servers. Consuming the data into a standard format and storing it to a file, database or both. 
