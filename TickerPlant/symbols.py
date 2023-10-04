@@ -2,7 +2,7 @@ import pandas as pd
 import sqlalchemy
 
 
-
+# pull the list of symbols from db or file 
 class Symbol_map:
     # db connection consists of server 
     def __init__(self, feedType = None, fileName=None, filetype = None ,dbConnection=None, dbtype =None):
@@ -12,7 +12,7 @@ class Symbol_map:
         if feedType == "DB":
             self.symbols = self.get_list_from_db(dbConnection, dbtype)
 
-
+# grab the data from a database 
     def get_list_from_db(self, dbConnection, dbtype):
             
         if dbtype == "MSSQL":
@@ -22,7 +22,7 @@ class Symbol_map:
             result  = pd.read_sql(sql, con= engine)
             return result
             
-
+# grab the data from a file 
     def get_list_from_file(self,filename, filetype):
             if filetype =='csv':
                 path = filename 
@@ -36,10 +36,10 @@ class Symbol_map:
                 path = filename
                 df = pd.read_json
                 return df       
-
+# turn data into a list 
     def get_list(self, data):
         d = pd.DataFrame(data)
-
+# return symbols
     def get_symbols(self):
         return self.symbols
     

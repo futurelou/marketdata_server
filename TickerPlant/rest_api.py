@@ -9,7 +9,9 @@ q = queue.Queue()
 import configparser
 config = configparser.RawConfigParser()
 
-configFilePath = r'C:\Users\louie\crypto_trade\config.cfg'
+# testing how to use rest api not finished 
+
+configFilePath = "path"
 config.read(configFilePath)
 
 app = Flask(__name__)
