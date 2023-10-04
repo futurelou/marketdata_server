@@ -11,19 +11,19 @@ These instructions will get you a copy of the project up and running on your loc
 
 The things you need before installing the software.
 
-import socket
-import select
-import time
-import sys
-import unicodedata as unicode
-from store import Storage
-import queue
-from symbols import Symbol_map
-import configparser
-import threading 
-from yahoo_handler import yahoo_handler
-import datetime as dt
-import pandas as pd 
-import sqlalchemy
+socket <br />
+select <br />
+time <br />
+sys <br />
+unicodedata as unicode <br />
+from store import Storage <br />
+queue <br />
+from symbols import Symbol_map <br />
+configparser <br />
+threading  <br />
+from yahoo_handler import yahoo_handler <br />
+datetime as dt <br />
+pandas as pd  <br />
+sqlalchemy <br />
 
 
